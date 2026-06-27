@@ -32,6 +32,9 @@ uploads/
 test-results/
 playwright-report/
 .cache/
+.context/
+tests/**/result*.csv
+tests/load/result*.csv
 
 # Binaries (repo policy: no binaries except tests/fixtures)
 *.exe

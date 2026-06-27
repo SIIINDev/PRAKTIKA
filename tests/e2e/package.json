@@ -1,0 +1,12 @@
+{
+  "name": "praktika-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright E2E tests for the knowledge-base search system",
+  "scripts": {
+    "test": "playwright test --reporter=line"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0"
+  }
+}
