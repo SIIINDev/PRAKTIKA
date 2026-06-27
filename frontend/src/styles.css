@@ -4,7 +4,7 @@
   --surface-alt: #f8fafc;
   --border: #e2e8f0;
   --text: #1e293b;
-  --text-muted: #64748b;
+  --text-muted: #4b5563;
   --primary: #2563eb;
   --primary-hover: #1d4ed8;
   --primary-soft: #dbeafe;
@@ -78,10 +78,11 @@ a {
 .brand {
   font-weight: 700;
   font-size: 1.05rem;
+  line-height: 1.2;
+  margin: 0 auto 0 0;
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-right: auto;
 }
 
 .brand-mark {
@@ -352,19 +353,21 @@ a:focus-visible {
   background: currentColor;
 }
 
+/* Darker text shades than the base accent colors so badge text on the soft
+   background meets WCAG AA contrast (>= 4.5:1) for small bold text. */
 .badge.uploading,
 .badge.indexing {
-  color: var(--warning);
+  color: #92500a;
   background: var(--warning-soft);
 }
 
 .badge.done {
-  color: var(--success);
+  color: #15803d;
   background: var(--success-soft);
 }
 
 .badge.error {
-  color: var(--danger);
+  color: #b91c1c;
   background: var(--danger-soft);
 }
 
@@ -593,6 +596,11 @@ a:focus-visible {
   padding: 5px 12px;
   cursor: pointer;
   color: var(--text);
+  /* Keep long queries from overflowing the viewport on narrow screens. */
+  max-width: min(260px, 100%);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .chip:hover {

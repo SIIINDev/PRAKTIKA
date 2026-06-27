@@ -11,12 +11,12 @@ export default function App() {
     <div className="app">
       <header className="topbar">
         <div className="topbar-inner">
-          <div className="brand">
+          <h1 className="brand">
             <span className="brand-mark" aria-hidden="true">
               📚
             </span>
             <span>База знаний</span>
-          </div>
+          </h1>
           <nav className="nav" aria-label="Основная навигация">
             <button
               type="button"
