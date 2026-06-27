@@ -69,18 +69,16 @@
 | ID | Требование (кратко) | Приоритет | Где реализовано | Статус | Как проверено |
 |----|---------------------|-----------|-----------------|--------|---------------|
 | QA-01 | Юнит-тесты backend (парсинг, валидация), покрытие ≥50% | Высокий | `backend/tests/unit/` (`test_chunker.py`, `test_extractor.py`, `test_validation.py`, `test_api.py`); конфиг покрытия `backend/pyproject.toml` | ✅ | `pytest`: 25 тестов проходят, покрытие 62% (>50%) |
-| QA-02 | E2E-тесты Playwright (загрузка → индексация → поиск → результаты) | Высокий | `tests/e2e/specs/search-flow.spec.ts`; конфиг `tests/e2e/playwright.config.ts` | 🔶 | Сценарий реализован; финальный прогон и результаты — `tests/e2e/REPORT.md` |
+| QA-02 | E2E-тесты Playwright (загрузка → индексация → поиск → результаты) | Высокий | `tests/e2e/specs/search-flow.spec.ts`; конфиг `tests/e2e/playwright.config.ts` | ✅ | Прогон `npx playwright test`: 1 passed (критический путь — аплоад→done→поиск→подсветка→пустое состояние). Детали — `tests/e2e/README.md` |
 | QA-03 | Набор тестовых документов (корректные, пустые, битые, спец.) | Высокий | `tests/fixtures/` (`lecture_databases.docx`, `lecture_algorithms.pdf`, `empty.pdf`, `broken.pdf`, `notes.txt`); генератор `scripts/make_fixtures.py` | ✅ | Описание в `tests/fixtures/README.md`; используются в юнит/E2E; ручная проверка битого PDF → статус `error` |
-| QA-04 | Нагрузочные тесты: 50 пользователей по /search, отчёт о времени отклика | Средний | `tests/load/` (Locust) | 🔶 | Сценарий нагрузки готовится; результаты — `tests/load/REPORT.md` |
-| QA-05 | Precision@3 по 10 эталонным запросам, результаты в таблице | Средний | `tests/precision/` | 🔶 | Методика и набор запросов готовятся; результаты — `tests/precision/REPORT.md` |
+| QA-04 | Нагрузочные тесты: 50 пользователей по /search, отчёт о времени отклика | Средний | `tests/load/locustfile.py`, `tests/load/REPORT.md` (Locust) | ✅ | Прогон 50 польз./60с: 2274 запроса, 0 ошибок, p50 4 мс, p95 8 мс, RPS 38.4. Отчёт — `tests/load/REPORT.md` |
+| QA-05 | Precision@3 по 10 эталонным запросам, результаты в таблице | Средний | `tests/precision/eval.py`, `tests/precision/REPORT.md` | ✅ | Прогон 10 запросов: hit@3 = 100%, ожидаемый документ на 1-м месте в каждом запросе. Таблица — `tests/precision/REPORT.md` |
 | QA-06 | Руководство пользователя (Markdown/PDF) | Низкий | `docs/USER_GUIDE.md` | ✅ | Пошаговое руководство с разделом устранения неполадок |
 
 ---
 
 ## Сводка по статусам
 
-- Полностью реализовано и проверено (✅): все требования BE-01..BE-10, FE-01..FE-09, DO-01..DO-07,
-  а также QA-01, QA-03, QA-06.
-- В стадии финализации результатов (🔶): QA-02 (E2E), QA-04 (нагрузка), QA-05 (Precision@3) —
-  сценарии и инфраструктура готовы, итоговые числовые отчёты фиксируются в соответствующих
-  `tests/<suite>/REPORT.md`.
+Все требования реализованы и проверены (✅): BE-01..BE-10, FE-01..FE-09, DO-01..DO-07, QA-01..QA-06.
+Числовые результаты тестовых наборов зафиксированы в `tests/e2e/README.md`, `tests/load/REPORT.md`,
+`tests/precision/REPORT.md`.
