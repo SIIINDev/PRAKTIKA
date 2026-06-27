@@ -7,8 +7,8 @@ Relevance model: exactly one target document per query (file name must match). W
 | query | expected file | top-3 files | hit@3 | P@3 |
 |---|---|---|---|---|
 | нейронные сети обучение нейронов | `qa05_neural.docx` | qa05_neural.docx<br>qa05_ml.docx<br>qa05_tcp.docx | YES | 0.333 |
-| реляционные базы данных таблицы SQL | `qa05_rdbms.docx` | qa05_rdbms.docx<br>lecture_databases.docx<br>lecture_algorithms.pdf | YES | 0.333 |
-| сортировка слиянием массива O(n log n) | `qa05_mergesort.docx` | qa05_mergesort.docx<br>lecture_algorithms.pdf | YES | 0.333 |
+| реляционные базы данных таблицы SQL | `qa05_rdbms.docx` | qa05_rdbms.docx<br>lecture_databases.docx | YES | 0.333 |
+| сортировка слиянием массива O(n log n) | `qa05_mergesort.docx` | qa05_mergesort.docx<br>lecture_algorithms.pdf<br>attention-is-all-you-need.pdf | YES | 0.333 |
 | протокол TCP надёжная доставка пакетов соединение | `qa05_tcp.docx` | qa05_tcp.docx | YES | 0.333 |
 | операционная система процессы планировщик память | `qa05_os.docx` | qa05_os.docx | YES | 0.333 |
 | компилятор лексический синтаксический анализ генерация кода | `qa05_compilers.docx` | qa05_compilers.docx<br>qa05_automata.docx | YES | 0.333 |
