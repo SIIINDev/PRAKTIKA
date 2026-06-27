@@ -14,6 +14,9 @@ logger = logging.getLogger(__name__)
 _settings = get_settings()
 _client: AsyncElasticsearch | None = None
 
+# Elasticsearch's default index.max_result_window; from+size may not exceed it.
+MAX_RESULT_WINDOW = 10000
+
 INDEX_SETTINGS = {
     "settings": {
         "analysis": {
@@ -124,15 +127,20 @@ async def search(q: str, page: int, size: int) -> tuple[int, int, list[dict]]:
     """
     client = get_client()
     from_ = (page - 1) * size
+    query = {"multi_match": {"query": q, "fields": ["text", "file_name"]}}
+
+    # Elasticsearch refuses from+size beyond max_result_window (default 10000).
+    # A page that deep has no results anyway, so return an empty page with the
+    # real total instead of letting ES raise.
+    if from_ >= MAX_RESULT_WINDOW:
+        count = await client.count(index=_settings.elasticsearch_index, body={"query": query})
+        return int(count["count"]), 0, []
+    effective_size = min(size, MAX_RESULT_WINDOW - from_)
+
     body = {
         "from": from_,
-        "size": size,
-        "query": {
-            "multi_match": {
-                "query": q,
-                "fields": ["text", "file_name"],
-            }
-        },
+        "size": effective_size,
+        "query": query,
         "highlight": {
             "pre_tags": ["<em>"],
             "post_tags": ["</em>"],
