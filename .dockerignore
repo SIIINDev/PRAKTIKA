@@ -1,0 +1,30 @@
+# Root build context (used by the frontend image, context=repo root).
+.git
+.github
+.gitignore
+*.md
+.env
+.DS_Store
+
+# Node
+frontend/node_modules/
+frontend/dist/
+**/node_modules/
+*.local
+
+# Python
+backend/.venv/
+backend/data/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+
+# Misc
+data/
+uploads/
+tests/
+test-results/
+playwright-report/
+*.pdf
